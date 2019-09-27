@@ -12,18 +12,18 @@ Choose categories for FCM is sent when post is published
 Send FCM messages to a single user FCM token or to group using topics
 Very simple to use plugin
 # Installation
-The Boilerplate can be installed directly into your plugins folder. Download the zip, extract to your plugins folder of your wordepress installation and enjoy:
+The plugin can be installed directly into your plugins folder. Download the zip, extract to your plugins folder of your wordepress installation and enjoy:
 Login to Firebase Console. Go to overview, Project settings, cloud messaging and get your server key.  
 # Recommended Tools
 i18n Tools
-The WordPress Plugin Boilerplate uses a variable to store the text domain used when internationalizing strings throughout the Boilerplate. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
+The WordPress Plugin uses a variable to store the text domain used when internationalizing strings throughout the Plugin. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
 
 Poedit
 makepot
 i18n
 Any of the above tools should provide you with the proper tooling to internationalize the plugin.
 # License
-The WordPress Plugin Boilerplate is licensed under the GPL v3 or later.
+The WordPress Plugin is licensed under the GPL v3 or later.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3, as published by the Free Software Foundation.
 
