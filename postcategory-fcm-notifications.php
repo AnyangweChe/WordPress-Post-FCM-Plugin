@@ -1,26 +1,24 @@
 <?php
 
 /**
- * The plugin bootstrap file
  *
  * This file is read by WordPress to generate the plugin information in the plugin
  * admin area. This file also includes all of the dependencies used by the plugin,
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.postcategory-fcm-notifications
  *
- * @link              https://github.com/postcategory-fcm-notifications
+ * @link              https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
  * @since             1.0.0
- * @package           postcategory-fcm-notifications
+ * @package           WordPress-Post-FCM-Plugin
  *
  * @wordpress-plugin
  * Plugin Name:       Post Category FCM Notifications
- * Plugin URI:        https://github.com/postcategory-fcm-notifications
+ * Plugin URI:        https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
  * Description:       Send FCM notifications from specific catergories.
  * Version:           1.0.0
- * Author:            Anyangwe CHE
- * Author URI:        https://linkedin.com//
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Author:            Mfornyam Emil
+ * License:           GNU v3.0
+ * License URI:       https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin/blob/master/LICENSE
  * Text Domain:       postcategory-fcm-notifications
  * Domain Path:       /languages
  */
@@ -32,8 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
  */
 define('PCFCM_VERSION', '1.0.0' );
 	

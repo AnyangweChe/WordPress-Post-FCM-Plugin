@@ -3,11 +3,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://example.com
+ * @link       https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
+ * @package    WordPress-Post-FCM-Plugin
+ * @subpackage WordPress-Post-FCM-Plugin/admin
  */
 
 /**
@@ -16,9 +16,9 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
- * @author     Your Name <email@example.com>
+ * @package    WordPress-Post-FCM-Plugin
+ * @subpackage WordPress-Post-FCM-Plugin/admin
+ * @author     Mfornyam Emil <emil.penzer@gmail.com>
  */
 class Post_Category_FCM_Notifications_Admin {
 

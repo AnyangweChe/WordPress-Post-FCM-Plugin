@@ -5,11 +5,11 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       http://example.com
+ * @link       https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin/partials
+ * @package    WordPress-Post-FCM-Plugin
+ * @subpackage WordPress-Post-FCM-Plugin/admin/partials
  */
 ?>
 <h1 class="pcfcn-topic">Setup Google Firebase Cloud Messaging</h1>

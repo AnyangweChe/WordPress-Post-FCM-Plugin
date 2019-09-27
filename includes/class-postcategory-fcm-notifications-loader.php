@@ -3,11 +3,11 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
+ * @link       https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WordPress-Post-FCM-Plugin
+ * @subpackage WordPress-Post-FCM-Plugin/includes
  */
 
 /**
@@ -17,9 +17,10 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @since      1.0.0
+ * @package    WordPress-Post-FCM-Plugin
+ * @subpackage WordPress-Post-FCM-Plugin/includes
+ * @author     Mfornyam Emil <emil.penzer@gmail.com>
  */
 class PCFCM_Loader {
 
