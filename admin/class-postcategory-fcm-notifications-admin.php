@@ -18,7 +18,7 @@
  *
  * @package    WordPress-Post-FCM-Plugin
  * @subpackage WordPress-Post-FCM-Plugin/admin
- * @author     Mfornyam Emil <emil.penzer@gmail.com>
+ * @author     Mfornyam Emil <mfornyamemil@gmail.com>
  */
 class Post_Category_FCM_Notifications_Admin {
 
@@ -96,7 +96,11 @@ class Post_Category_FCM_Notifications_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/postcategory-fcm-notifications-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_media();
+
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/postcategory-fcm-notifications-admin.js', array( 'jquery' ),"0.1" );
+
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/postcategory-fcm-notifications-admin.js', array( 'jquery' ), '0.1');
 
 	}
 	
@@ -129,7 +133,19 @@ class Post_Category_FCM_Notifications_Admin {
 		include('partials/postcategory-fcm-notifications-admin-settings.php');
 		//include(plugin_dir_path(__FILE__) .'admin/partials/postcategory-fcm-notifications-admin-display.php') ;
 	}
-	
+
+	// Ajax action to refresh the user image
+	function myprefix_get_image() {
+		if(isset($_GET['id']) ){
+		    $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), 'medium', false, array( 'id' => 'myprefix-preview-image' ) );
+		    $data = array(
+		       'image'    => $image,
+		    );
+		    wp_send_json_success( $data );
+		}else{
+		    wp_send_json_error();
+		}
+	}
 
 	/**
 	 * Register Admin settings  .
@@ -141,6 +157,9 @@ class Post_Category_FCM_Notifications_Admin {
         register_setting('pfcm_group', 'pfcm_api');
         register_setting('pfcm_group', 'pfcm_topic');
         register_setting('pfcm_group', 'pfcm_disable');
+        register_setting('pfcm_group', 'pfcm_sound');
+        register_setting('pfcm_group', 'pfcm_vibrate');
+        register_setting('pfcm_group', 'pfcm_icon');
 		
 		$catest = get_categories() ;
 		foreach($catest as $catests){
@@ -161,6 +180,23 @@ class Post_Category_FCM_Notifications_Admin {
 		$categorySlug = 'pfcm_'.$categoryAll[0]->slug;
 		$contentt = get_post_field('post_content', $post_id);
         $title = get_the_title($post_id);
+
+        $feuture_img ;
+        if(has_post_thumbnail($post_id)){
+        	$post_thumbnail_id = get_post_thumbnail_id($post_id);
+        	$feuture_img = wp_get_attachment_url($post_thumbnail_id, 'thumbnail');
+    	}else{
+    		$feuture_img = '';
+    	}
+
+    	$cust_fields = array();
+    	$metas = get_post_meta($post_id);
+    	if(!empty($metas)){
+	    	foreach ($metas as $key => $val) {
+	    		 $key . ' : ' . $vals[0] ;
+	    		 $cust_fields[$key] = $vals[0] ;
+    		}
+    	}
 		
 		if(get_option('pfcm_api') && get_option('pfcm_topic')) {
 			$topic =  "/topics/".get_option('pfcm_topic') ;
@@ -168,9 +204,10 @@ class Post_Category_FCM_Notifications_Admin {
 			
 			if (get_option('pfcm_disable') != 1) {
 				
+				//$this->pfcm_notification($title, $contentt, $topic, $feuture_img, $cust_fields);
 				if (!$published_at_least_once && get_option($categorySlug) == 1) {
 					$published_at_least_once = true;
-					$this->pfcm_notification($title, $contentt, $topic);
+					$this->pfcm_notification($title, $contentt, $topic, $feuture_img);
 				}
 			}
 			update_post_meta( $post_id, 'is_published', $published_at_least_once );
@@ -183,9 +220,12 @@ class Post_Category_FCM_Notifications_Admin {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function pfcm_notification($title, $contentt, $topic ){
+	public function pfcm_notification($title, $contentt, $topic, $feuture_img, $cust_fields ){
 		
-        $apiKey = get_option('pfcm_api');
+        $apiKey 	= get_option('pfcm_api');
+        $sound 		= get_option('pfcm_sound');
+        $vibrate 	= get_option('pfcm_vibrate');
+        $iconUrl 	= (empty(get_option('pfcm_icon'))) ? "" : get_option('pfcm_icon');
 		
 		$url = 'https://fcm.googleapis.com/fcm/send';
         $headers = array(
@@ -196,42 +236,23 @@ class Post_Category_FCM_Notifications_Admin {
 		$notification_data = array(
             'message'           => $contentt,
             'title'           	=> $title,
-			'vibrate'			=> 1,
-			'sound'				=> 1,
+			'vibrate'			=> $vibrate,
+			'sound'				=> $sound,
+			'icon'				=> $iconUrl,
+			'image'				=> $feuture_img,
         );
-		
+
+		$notification_values = $notification_data + $cust_fields ;
+
 		$post = array(
             'to'         		=> $topic,
-            'notification'      => $notification_data
+            'notification'      => $notification_values
         );
 		
-		 $ch = curl_init();
-
-        // Set URL to GCM endpoint
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        // Set request method to POST
-        curl_setopt($ch, CURLOPT_POST, true);
-
-        // Set our custom headers
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        // Get the response back as string instead of printing it
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // Set JSON post data
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
-		
-		// Set Security
-		curl_setopt($ch, CURLOPT_CAINFO, plugin_dir_path(__FILE__).'/cacert.pem');
-		
-        // Actually send the push
-        $result = curl_exec($ch);
-
-        // Close curl handle
-        curl_close($ch);
-		
-		return $result;
+		$request = wp_remote_get($url, array(
+			    'headers'     => $headers,
+			    'body'        => $post,
+			));
 	}
 	
 }

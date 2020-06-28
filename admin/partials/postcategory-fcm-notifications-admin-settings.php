@@ -41,7 +41,7 @@
 			</td>
 			<td>
 				<div class="acf-input-wrap">
-					<input type="text" id="pcfn-api-key" class="number" name="pfcm_topic" value="<?php echo get_option( 'pfcm_topic' );  ?>" placeholder="" required="required">
+					<input type="text" id="pcfn-topic" class="number" name="pfcm_topic" value="<?php echo get_option( 'pfcm_topic' );  ?>" placeholder="" required="required">
 				</div>
 			</td>
 		</tr>
@@ -66,6 +66,44 @@
 		</tr>
 		<tr>
 			<td class="label">
+				<label for="post_type">Notification Alerts</label>
+				<p class="description">Enable Sound or Vibration</p>
+			</td>
+			<td>
+				<input id="pfcm_sound" name="pfcm_sound" type="checkbox" value="1" <?php checked( '1', get_option( 'pfcm_sound' ) ); ?> >Sound 
+				<br/>
+				<br/>
+				<input id="pfcm_vibrate" name="pfcm_vibrate" type="checkbox" value="1" <?php checked( '1', get_option( 'pfcm_vibration' ) ); ?> >Vibration
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<label for="post_type">Notification Icon</label>
+				<p class="description">Chose Icon</p>
+				<p class="description">Recomended Size <strong> 40 * 40</strong></p>
+			</td>
+			<td>
+				<?php 
+					$image_id = get_option( 'pfcm_icon' );
+					if(intval( $image_id ) > 0 ) {
+					    // Change with the image size you want to use
+					    $image = wp_get_attachment_image( $image_id, 'medium', false, array( 'id' => 'myprefix-preview-image' ) );
+					} else {
+					    // Some default image
+					    $image = '<img id="myprefix-preview-image"  />';
+					}
+					echo $image; 
+				?>
+				<!-- <div class='image-preview-wrapper'>
+					<img id='myprefix-preview-image' src='' width='100' height='100' style='max-height: 100px; width: 100px;'>
+				</div> -->
+				<br/>
+				<input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image' ); ?>" />
+				<input type='hidden' name='pfcm_icon' id='pfcm_icon' value='<?php echo esc_attr( $pfcm_icon ); ?>' />
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
 				<label for="post_type">Disable FCM</label>
 				<p class="description">Disable Push Notification on Post Publish</p>
 			</td>
@@ -73,6 +111,7 @@
 				<input id="post_disable" name="pfcm_disable" type="checkbox" value="1" <?php checked( '1', get_option( 'pfcm_disable' ) ); ?> >Yes 
 			</td>
 		</tr>
+
 		</tbody>
 	</table>
 	

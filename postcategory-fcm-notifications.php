@@ -1,26 +1,25 @@
 <?php
 
 /**
+ * Plugin Name:        Post Category FCM Notifications
  *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.postcategory-fcm-notifications
- *
- * @link              https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
- * @since             1.0.0
  * @package           WordPress-Post-FCM-Plugin
+ * @author:           Mfornyam Emil
+ * @copyright         2019 Mfornyam Emil
+ * @license:          GPL v2 or later
  *
  * @wordpress-plugin
  * Plugin Name:       Post Category FCM Notifications
  * Plugin URI:        https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin
- * Description:       Send FCM notifications from specific catergories.
+ * Description:       Send FCM notifications on post publish from specific catergories.
  * Version:           1.0.0
+ * Requires at least: 5.2
+ * Requires PHP:      5.2
  * Author:            Mfornyam Emil
- * License:           GNU v3.0
- * License URI:       https://github.com/EmilMfornyam/WordPress-Post-FCM-Plugin/blob/master/LICENSE
+ * Author URI:        https://github.com/EmilMfornyam
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       postcategory-fcm-notifications
- * Domain Path:       /languages
  */
 
 // If this file is called directly, abort.
